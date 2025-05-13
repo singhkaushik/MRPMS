@@ -73,4 +73,91 @@ A robust and secure Project Management System REST API built with **Node.js**, *
 | Manager| ❌    | ✅       | ✅    |
 | Member | ❌    | ❌       | 🔄 Update/View assigned tasks only |
 
+EndPoint 
+bash
+http://localhost:4000/api/v1
+
+🔹 Company Routes
+| Method   | Endpoint                   | Description             | Roles   |
+| -------- | -------------------------- | ----------------------- | ------- |
+| `POST`   | `/api/v1/company/register` | Setup company and admin | Public  |
+| `GET`    | `/api/v1/company/:id`      | Get company by ID       | `admin` |
+| `PUT`    | `/api/v1/company/:id`      | Update company by ID    | `admin` |
+| `DELETE` | `/api/v1/company/:id`      | Delete company by ID    | `admin` |
+
+example
+{
+  "companyName": "",
+  "domain": "",
+  "admin": {
+    "name": "",
+    "email": "",
+    "password": ""
+  }
+}
+
+
+
+🔹 User Routes
+
+| Method   | Endpoint              | Description                     | Roles              |
+| -------- | --------------------- | ------------------------------- | ------------------ |
+| `POST`   | `/api/v1/user/signup` | Signup new user under a company | `admin`            |
+| `POST`   | `/api/v1/user/signin` | Sign in a user (get token)      | Public             |
+| `GET`    | `/api/v1/`            | Get all users of company        | `admin`, `manager` |
+| `PUT`    | `/api/v1/user/:id`    | Update user by ID               | Authenticated      |
+| `DELETE` | `/api/v1/user/:id`    | Delete user by ID               | `admin`            |
+
+example
+{
+    "name": "",
+    "email": "",
+    "role": "",
+    "password": "",
+    "companyID": "" #Mongo db ID only
+}
+
+
+🔹 Project Routes
+
+| Method   | Endpoint                     | Description                     | Roles              |
+| -------- | ---------------------------- | ------------------------------- | ------------------ |
+| `POST`   | `/api/v1/project/create`     | Create a new project            | `admin`, `manager` |
+| `GET`    | `/api/v1/projects`           | Get all projects of the company | `admin`, `manager` |
+| `PUT`    | `/api/v1/project/:projectId` | Update a project                | `admin`, `manager` |
+| `DELETE` | `/api/v1/project/:projectId` | Delete a project                | `admin`, `manager` |
+
+example
+{
+    "name" : "", 
+    "description" : ""
+}
+
+
+🔹 Task Routes
+
+| Method   | Endpoint               | Description                  | Roles              |
+| -------- | ---------------------- | ---------------------------- | ------------------ |
+| `POST`   | `/api/v1/task/assign`  | Assign a task to user        | `admin`, `manager` |
+| `GET`    | `/api/v1/tasks`        | Get tasks (supports filters) | Authenticated      |
+| `PUT`    | `/api/v1/task/:taskId` | Update a task                | Authenticated      |
+| `DELETE` | `/api/v1/task/:taskId` | Delete a task                | `admin`, `manager` |
+
+
+{
+      "title": "",
+      "description": "",
+    //"status" : "",
+      "assignedTo" : "", #Mongo Db id only
+      "projectId": ""   #Mongo Db id only
+}
+
+
+✅ Example Base URL for Testing
+http://localhost:4000/api/v1/user/signin
+
+
+
+
+
 
